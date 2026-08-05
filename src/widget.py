@@ -22,34 +22,35 @@ Visa Gold 5999414228426353
 В том же модуле создайте функцию get_date, которая принимает на вход строку с датой в формате
 "2025-05-10T02:27:10.671407" и возвращает строку с датой в формате "ДД.ММ.ГГГГ" ("11.03.2024").
 """
-from masks import get_mask_card_number
-from masks import get_mask_account
+
 import datetime
+
+from masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(account_card: str) -> str:
-    """ Функция принимает на вход имя и номер счета/карты и возвращает маску """
-    #разделяем строку на подстроки, отделяя номер счета/карты
+    """Функция принимает на вход имя и номер счета/карты и возвращает маску"""
+    # разделяем строку на подстроки, отделяя номер счета/карты
     splited_account_card = account_card.split(" ")
-    #запускаем цикл разделения на карты и счета
+    # запускаем цикл разделения на карты и счета
     if len(list(splited_account_card[-1])) == 16:
-        #делаем маску номеру карты
+        # делаем маску номеру карты
         mask_card = get_mask_card_number(splited_account_card[-1])
-        #заменяем номер карты в строке маской
+        # заменяем номер карты в строке маской
         new_account_card = account_card.replace(splited_account_card[-1], mask_card)
     elif len(list(splited_account_card[-1])) == 20:
-        #делаем маску номеру счета
+        # делаем маску номеру счета
         mask_account = get_mask_account(splited_account_card[-1])
-        #заменяем номер счета в строке маской
+        # заменяем номер счета в строке маской
         new_account_card = account_card.replace(splited_account_card[-1], mask_account)
     else:
-        #отметаем случаи неверного ввода
+        # отметаем случаи неверного ввода
         new_account_card = "Данные введены некорректно"
     return new_account_card
 
 
 def get_date(iso_date: str) -> str:
-    """ Функция переводит дату из международного формата в формат 'ДД.ММ.ГГГГ' """
+    """Функция переводит дату из международного формата в формат 'ДД.ММ.ГГГГ'"""
     standard_format_date = datetime.datetime.strptime(iso_date, "%Y-%m-%dT%H:%M:%S.%f")
     return standard_format_date.strftime("%d.%m.%Y")
 
