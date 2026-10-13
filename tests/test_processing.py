@@ -16,7 +16,6 @@ import pytest
 
 from src.processing import filter_by_state, sort_by_date
 
-
 def test_filter_by_state(my_operation_list, filtered_executed):
     assert filter_by_state(my_operation_list) == filtered_executed
 
