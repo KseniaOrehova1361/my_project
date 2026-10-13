@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Poetry (my_projrct)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Poetry (my_projrct)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.14" project-jdk-type="Python SDK" />
 </project>
