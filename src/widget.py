@@ -34,7 +34,7 @@ def mask_account_card(account_card: str) -> str:
     splited_account_card = account_card.split(" ")
     # запускаем цикл разделения на карты и счета
     if len(list(splited_account_card[-1])) == 16:
-        # делаем маску номеру карты
+        #делаем маску номеру карты
         mask_card = get_mask_card_number(splited_account_card[-1])
         # заменяем номер карты в строке маской
         new_account_card = account_card.replace(splited_account_card[-1], mask_card)
