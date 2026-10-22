@@ -23,9 +23,9 @@ Visa Gold 5999414228426353
 "2025-05-10T02:27:10.671407" и возвращает строку с датой в формате "ДД.ММ.ГГГГ" ("11.03.2024").
 """
 
-import datetime
+from datetime import datetime
 
-from masks import get_mask_account, get_mask_card_number
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(account_card: str) -> str:
@@ -34,7 +34,7 @@ def mask_account_card(account_card: str) -> str:
     splited_account_card = account_card.split(" ")
     # запускаем цикл разделения на карты и счета
     if len(list(splited_account_card[-1])) == 16:
-        # делаем маску номеру карты
+        #делаем маску номеру карты
         mask_card = get_mask_card_number(splited_account_card[-1])
         # заменяем номер карты в строке маской
         new_account_card = account_card.replace(splited_account_card[-1], mask_card)
@@ -51,12 +51,14 @@ def mask_account_card(account_card: str) -> str:
 
 def get_date(iso_date: str) -> str:
     """Функция переводит дату из международного формата в формат 'ДД.ММ.ГГГГ'"""
-    standard_format_date = datetime.datetime.strptime(iso_date, "%Y-%m-%dT%H:%M:%S.%f")
+    try:
+        datetime.fromisoformat(iso_date)
+        standard_format_date = datetime.strptime(iso_date, "%Y-%m-%dT%H:%M:%S.%f")
+    except ValueError:
+        return "Неверный формат даты"
     return standard_format_date.strftime("%d.%m.%Y")
 
 
-account_card = str(input("Ведите данные счета/карты: "))
-print(mask_account_card(account_card))
-
-iso_date = str(input("Введите дату: "))
-print(get_date(iso_date))
+if __name__ == "__main__": # pragma: no cover
+    print(mask_account_card(str(input("Ведите данные счета/карты: "))))
+    print(get_date(str(input("Введите дату: "))))
